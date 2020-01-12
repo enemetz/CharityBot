@@ -1,15 +1,18 @@
 import discord
+from discord.ext import commands
 
-client = discord.Client()
+bot = commands.Bot(command_prefix='!')
+#When the bot is connected will print status
 
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
+@bot.command()
+async def poll(ctx, arg):
+    if arg is None:
+        return
+    else:
+        msg = await ctx.send(arg)
+        await msg.add_reaction('1️⃣')
+        await msg.add_reaction('2️⃣')
 
 
-@client.event
-async def on_message(message):
-    if message.content.startswith('!aminals'):
-        await message.channel.send('This is a test')
-#async def
-client.run('')
+#Do not put api key in when pushing to repo
+bot.run('')
